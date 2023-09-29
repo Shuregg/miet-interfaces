@@ -23,81 +23,164 @@
 module encoder_rll
   (
     input logic         clk_i,
-    input logic         rst_i,
-    input logic  [3:0]  data_i,
+    //input logic         rst_i,
+    input logic         data_i,
     
-    output logic [7:0] data_o
+    output logic [7:0]  data_o
   );
-  
-  parameter [3:0] 
-   IDLE   = 0,
-   st0    = 1, 
-   st1    = 2, 
-   st00   = 3, 
-   st01   = 4, 
-   st10   = 5, 
-   st11   = 6, 
-   st000  = 7, 
-   st001  = 8, 
-   st010  = 9, 
-   st011  = 10,
-   st0010 = 11,
-   st0011 = 12;
+
    
-  logic     [3:0] current_state;
+  parameter [1:0]               buff_width      = 4;
+  logic     [buff_width-1:0]    buffer_in;
+  logic     [2*buff_width-1:0]  buffer_out;
+  integer                       clock_delay_cnt = 0;
   
-  initial current_state = IDLE;
+  //assign data_o = buffer_out;
+  
+  //SHIFT REGISTER for buffer fill
   always @ (posedge clk_i) begin
-    case(current_state)
-    //TODO WITH 4 bit input check
-      IDLE:
-        current_state = data_i ? st1    : st0;
-      
-      st0:
-        current_state = data_i ? st01   : st00;
-      
-      st1:
-        current_state = data_i ? st11   : st10;
-      
-      st00:
-        current_state = data_i ? st001  : st000;
-      
-      st01:
-        current_state = data_i ? st011  : st010;
-      
-      st10: begin 
+    if(clock_delay_cnt < buff_width) begin
+      clock_delay_cnt = clock_delay_cnt + 1;
+      buffer_out = 8'b0;
+    end
+    buffer_in <= {buffer_in[2:0], data_i};
+  end
+  
+  //Generate RLL code
+  always @ (posedge clk_i or negedge clk_i) begin
+    case(buffer_in)
+        4'bXX11: begin // RN NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0],
+//           ~buffer_out[0], ~buffer_out[0],
+//           ~buffer_out[0], ~buffer_out[0]};
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
+          
+        4'bXX10: begin // NR NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0],
+//            buffer_out[0], ~buffer_out[0], //N R
+//           ~buffer_out[0], ~buffer_out[0]};//N N
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
         
-        current_state = data_i ? st1    : st0;              // NR NN
+        4'bX011: begin // NN RN NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0],
+//            buffer_out[0],  buffer_out[0], //N N
+//           ~buffer_out[0], ~buffer_out[0], //R N
+//           ~buffer_out[0], ~buffer_out[0]};//N N
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
         
-      end  
-         
-      st11: begin
-        current_state = data_i ? st1    : st0;              // RN NN
-      end  
-         
-      st000: begin
-        current_state = data_i ? st1    : st0;              // NN NR NN
-      end
-      
-      st001:
-        current_state = data_i ? st0011 : st0010;
-      
-      st010: begin
-        current_state = data_i ? st1    : st0;              // RN NR NN
-      end
-      
-      st011: begin
-        current_state = data_i ? st1    : st0;              // NN RN NN
-      end
-      
-      st0010: begin
-        current_state = data_i ? st1    : st0;              // NN RN NR NN
-      end
-      
-      st0011: begin
-        current_state = data_i ? st1    : st0;              // NN NN RN NN
-      end
-      
+        4'bX010: begin // RN NR NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0],
+//           ~buffer_out[0], ~buffer_out[0],
+//           ~buffer_out[0],  buffer_out[0],
+//            buffer_out[0],  buffer_out[0]};
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
+        
+        4'bX000: begin // NN NR NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0], 
+//           buffer_out[0],  buffer_out[0],
+//           buffer_out[0], ~buffer_out[0], 
+//          ~buffer_out[0], ~buffer_out[0]};
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
+        
+        4'b0011: begin // NN NN RN NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0], 
+//           buffer_out[0],  buffer_out[0],
+//           buffer_out[0],  buffer_out[0],
+//          ~buffer_out[0], ~buffer_out[0],
+//          ~buffer_out[0], ~buffer_out[0]};
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
+          
+        4'b0010: begin // NN RN NR NN
+//          buffer_out <= {buffer_out[2*buff_width-1-buff_width:0], 
+//           buffer_out[0],  buffer_out[0],
+//          ~buffer_out[0], ~buffer_out[0],
+//          ~buffer_out[0],  buffer_out[0],
+//           buffer_out[0],  buffer_out[0]};
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0], ~buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+          buffer_out = {buffer_out[2*buff_width-1-1:0],  buffer_out[0]};
+          data_o     = buffer_out[0];
+        end
     endcase
   end
 endmodule
