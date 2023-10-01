@@ -35,15 +35,18 @@ module encoder_rll
   logic     [2*buff_width-1:0]  buffer_out;
   integer                       clock_delay_cnt = 0;
   
-  //assign data_o = buffer_out;
+  assign data_o = buffer_out;
   
   //SHIFT REGISTER for buffer fill
   always @ (posedge clk_i) begin
     if(clock_delay_cnt < buff_width) begin
       clock_delay_cnt = clock_delay_cnt + 1;
-      buffer_out = 8'b0;
+      buffer_out <= 8'b0;
+      buffer_in <= {buffer_in[2:0], data_i};
+    end else begin
+      buffer_in <= {buffer_in[2:0], data_i};
     end
-    buffer_in <= {buffer_in[2:0], data_i};
+    
   end
   
   //Generate RLL code
