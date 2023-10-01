@@ -12,3 +12,4 @@
 elaborate.txt
 *.bat
 *.tcl
+*.runs
