@@ -1,0 +1,15 @@
+0.6
+2019.2
+Nov  6 2019
+21:57:16
+D:/Study/RLLCODE/RLLCODE.sim/sim_1/behav/xsim/glbl.v,1573089660,verilog,,,,glbl,,,,,,,,
+D:/Study/RLLCODE/sim/encoder_tb.sv,1696441138,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_rrl_tb.sv,,,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/sim/ecnoder5oct_tb.sv,1696521235,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_rrl_tb2.sv,,encoder5oct_tb,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_rrl_tb.sv,1695991260,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/sim/ecnoder5oct_tb.sv,,,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_rrl_tb2.sv,1696515091,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_tb.sv,,encoder_rrl_tb,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_tb.sv,1696521050,systemVerilog,,,,encoder_tb,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/src/RLLencoder.sv,1696177671,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder_rll.sv,,RLLencoder,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder.sv,1696519403,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/src/RLLencoder.sv,,encoder,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder5oct.sv,1696523941,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder.sv,,encoder5oct,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder_rll.sv,1696171140,systemVerilog,,D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder_rll_2nd_try.sv,,encoder_rll,,,,,,,,
+D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder_rll_2nd_try.sv,1696515648,systemVerilog,,D:/Study/RLLCODE/sim/encoder_tb.sv,,encoder_rll_2nd_try,,,,,,,,
