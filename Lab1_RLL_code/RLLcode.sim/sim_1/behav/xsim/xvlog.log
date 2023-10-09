@@ -1,4 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/Study/miet-interfaces/Lab1_RLL_code/src/encoder_rll.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module encoder_rll
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/Study/miet-interfaces/Lab1_RLL_code/sim/encoder_rrl_tb.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module encoder_rrl_tb

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="encoder5oct_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="encoder5oct_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="237601fs"></ZoomEndTime>
+      <Cursor1Time time="142000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="165"></NameColumnWidth>
+      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="12" />
+   <wvobject fp_name="/encoder5oct_tb/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/DATA" type="logic">
+      <obj_property name="ElementShortName">DATA</obj_property>
+      <obj_property name="ObjectShortName">DATA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/RST" type="logic">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/RES" type="array">
+      <obj_property name="ElementShortName">RES[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RES[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/bitline" type="array">
+      <obj_property name="ElementShortName">bitline[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bitline[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/LINE_LENGTH" type="array">
+      <obj_property name="ElementShortName">LINE_LENGTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LINE_LENGTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/PERIOD" type="array">
+      <obj_property name="ElementShortName">PERIOD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PERIOD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/encoder5oct_inst/SR_OUT" type="array">
+      <obj_property name="ElementShortName">SR_OUT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SR_OUT[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/encoder5oct_inst/SR_IN" type="array">
+      <obj_property name="ElementShortName">SR_IN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SR_IN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/encoder5oct_inst/start_delay_cnt" type="array">
+      <obj_property name="ElementShortName">start_delay_cnt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">start_delay_cnt[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/encoder5oct_tb/encoder5oct_inst/bit_cnt" type="array">
+      <obj_property name="ElementShortName">bit_cnt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_cnt[31:0]</obj_property>
+   </wvobject>
+</wave_config>

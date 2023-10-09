@@ -23,7 +23,7 @@
 module encoder_rll_2nd_try
   (
     input logic         clk_i,
-    //input logic         rst_i,
+    //input logic         ri,
     input logic  [3:0]  data_i,
     
     output logic [7:0]  data_o

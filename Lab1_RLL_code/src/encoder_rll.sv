@@ -23,7 +23,7 @@
 module encoder_rll
   (
     input logic         clk_i,
-    //input logic         rst_i,
+    //input logic         ri,
     input logic         data_i,
     
     output logic [7:0]  data_o

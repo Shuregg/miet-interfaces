@@ -3,7 +3,7 @@
 module encoder
 (
   input  logic         clk_i,
-  input  logic         arst_i,
+  input  logic         ari,
   input  logic         data_i,
   
   output logic [7:0]  data_o
@@ -17,13 +17,13 @@ integer bit_cnt = 0;
 
 logic  [max_tab_in-1:0]  SR_IN;
 logic  [max_tab_out-1:0] SR_OUT;
-logic                    last_bit_out;
+logic                    labit_out;
 
 //assign data_o = SR_OUT;
-//assign last_bit_out = data_o[7];
+//assign labit_out = data_o[7];
 
-always_ff @(posedge clk_i or negedge arst_i) begin
-  if(!arst_i) begin
+always_ff @(posedge clk_i or negedge ari) begin
+  if(!ari) begin
     data_o      <= 8'b0;
     bit_cnt  = 0;
     //delay_cnt    = 0;

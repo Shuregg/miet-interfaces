@@ -40,7 +40,7 @@ module encoder_tb();
   encoder encoder_inst
   (
     .clk_i(CLK),
-    .arst_i(RST),
+    .ari(RST),
     .data_i(DATA),
     .data_o(RES)
    );
