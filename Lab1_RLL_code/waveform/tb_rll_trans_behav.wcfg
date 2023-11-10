@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_rll_trans_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_rll_trans" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="279601fs"></ZoomEndTime>
+      <Cursor1Time time="259530fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="140"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/tb_rll_trans/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/DATA" type="logic">
+      <obj_property name="ElementShortName">DATA</obj_property>
+      <obj_property name="ObjectShortName">DATA</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/RST" type="logic">
+      <obj_property name="ElementShortName">RST</obj_property>
+      <obj_property name="ObjectShortName">RST</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/VALID" type="array">
+      <obj_property name="ElementShortName">VALID[1:0]</obj_property>
+      <obj_property name="ObjectShortName">VALID[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/rll_trans_inst/sh_r" type="array">
+      <obj_property name="ElementShortName">sh_r[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sh_r[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/rll_trans_inst/to_skip" type="array">
+      <obj_property name="ElementShortName">to_skip[2:0]</obj_property>
+      <obj_property name="ObjectShortName">to_skip[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/RES4" type="array">
+      <obj_property name="ElementShortName">RES4[3:0]</obj_property>
+      <obj_property name="ObjectShortName">RES4[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/RES6" type="array">
+      <obj_property name="ElementShortName">RES6[5:0]</obj_property>
+      <obj_property name="ObjectShortName">RES6[5:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/RES8" type="array">
+      <obj_property name="ElementShortName">RES8[7:0]</obj_property>
+      <obj_property name="ObjectShortName">RES8[7:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rll_trans/bitline" type="array">
+      <obj_property name="ElementShortName">bitline[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bitline[31:0]</obj_property>
+   </wvobject>
+</wave_config>
