@@ -45,7 +45,7 @@ module encoder5oct_tb();
     RST = 0;
      @(posedge CLK);
     for(i = 0; i < LINE_LENGTH; i = i + 1) begin
-      DATA = bitline[i];
+      DATA <= bitline[i];
       @(posedge CLK);
     end
     
