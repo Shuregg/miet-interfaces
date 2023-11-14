@@ -41,9 +41,11 @@ module rll_trans
     if (rst_i) begin
       sh_r      <= 4'b0;
       to_skip   <= 3'd4;
+      //to_skip   <= 3'd0;
       valid_o   <= 2'b0;
     end else begin
       sh_r <= {data_bit_i, sh_r[3:1]}; //filling in the shift register
+//    to_skip   <= 3'd4;
       if (to_skip == 2'b0) begin
         encode6_o <= 6'b0;
         encode4_o <= 4'b0;
