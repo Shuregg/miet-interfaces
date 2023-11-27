@@ -52,11 +52,6 @@ typedef enum logic
 
 
 module SPI
-#(
-    parameter reg_width = 32,
-    parameter counter_width = $clog2(reg_width),
-    parameter reset = 0, idle = 1, load = 2, transact = 3, unload = 4
-)
 (
     //SPI Interface
     input   logic           SCLK_i,  //Clock
