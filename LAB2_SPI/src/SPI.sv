@@ -19,29 +19,25 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-/*
-Variant #2. SPI.
-Modules used: W25Q16 Flash memory, 7-segment indicator, 74HC595 shift register, MPU6000 sensor.
-Tasks for testbench:
-1. Read 4 bytes of data from Flash memory W25Q16.
-2. Output the received data to eight 7-segment indicators connected via shift registers 74HC595.
-3. Write data to Flash memory W25Q16 at any available address.
-4. Read data from the W25Q16 Flash memory at any available address using the Fast Read command.
-5. Display the received data on 7-segment indicators.
-6. Read data from MPU6000 at addresses 114-117.
-7. Display the received data on 7-segment indicators.
-Connect the 7-segment indicators according to the serial scheme, the other devices - according to the parallel scheme.
-*/
+// Variant #2. SPI.
+// Modules used: W25Q16 Flash memory, 7-segment indicator, 74HC595 shift register, MPU6000 sensor.
+// Tasks for testbench:
+// 1. Read 4 bytes of data from Flash memory W25Q16.
+// 2. Output the received data to eight 7-segment indicators connected via shift registers 74HC595.
+// 3. Write data to Flash memory W25Q16 at any available address.
+// 4. Read data from the W25Q16 Flash memory at any available address using the Fast Read command.
+// 5. Display the received data on 7-segment indicators.
+// 6. Read data from MPU6000 at addresses 114-117.
+// 7. Display the received data on 7-segment indicators.
+// Connect the 7-segment indicators according to the serial scheme, the other devices - according to the parallel scheme.
 
-/*
-1. Read 4 Bytes from Flash
-2. Display this data to 8 HEXs
-3. Write data ti Flash using any free address
-4. Read data from flash using Fast Read and any address
-5. Display to HEX
-6. Read data from sensor;
-7.Display to HEX
-*/
+// 1. Read 4 Bytes from Flash
+// 2. Display this data to 8 HEXs
+// 3. Write data ti Flash using any free address
+// 4. Read data from flash using Fast Read and any address
+// 5. Display to HEX
+// 6. Read data from sensor;
+// 7.Display to HEX
 
 // MODE: CPOL = 0, CPHA = 0.
 
@@ -55,7 +51,13 @@ typedef enum logic
 } State;
 
 
-module SPI(
+module SPI
+#(
+    parameter reg_width = 32,
+    parameter counter_width = $clog2(reg_width),
+    parameter reset = 0, idle = 1, load = 2, transact = 3, unload = 4
+)
+(
     //SPI Interface
     input   logic           SCLK_i,  //Clock
     input   logic           MISO_i,  //Master inpur Slave Output
