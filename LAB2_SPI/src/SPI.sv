@@ -52,73 +52,89 @@
 
 typedef enum logic 
 {
-    IDLE    =   3'b000, 
-    SHIFT   =   3'b001, 
-    LATCH   =   3'b010, 
-    HOLD    =   3'b011 
+    RESET       =   3'b000
+    IDLE        =   3'b001, 
+    SHIFT       =   3'b010, 
+    LOAD        =   3'b011,
+    UNLOAD      =   3'b100
 } State;
 
-module SPI(
-    input   logic  SCLK_i,  //Clock
-    input   logic  ARST_i,   //ASyncr Reset
 
-    input   logic  MISO_i,  //Master inpur Slave Output
-    
-    output  logic  MOSI_o,  //Master Output Slave Input
-    output  logic  SS0_o,   //Flash
-    output  logic  SS1_o,   //8-bit Shift register
-    output  logic  SS2_o    //sensor
+module SPI(
+    //SPI Interface
+    input   logic           SCLK_i,  //Clock
+    input   logic           MISO_i,  //Master inpur Slave Output
+    output  logic   [1:0]   SS_o,      //Slave Select
+    output  logic           MOSI_o,  //Master Output Slave Input
+
+    //Controller Interface
+    input   logic           clk_i,
+    input   logic           rst_i,  //Syncr Reset
+    input   logic           transaction_started_i,
+    input   logic           transaction_size_i
+    // input   logic   [1:0]   slave_select_i, 
+    // input   
     );
     
-
+    State state, state_next;
     
     logic [7:0] tx_data;    //transmitted data
     logic [7:0] rx_data;    //received data
 
-    logic [3:0] bit_counter;//Counter for bit receive/send
+    logic [9:0] bit_counter;//Counter for bit receive/send
 
     logic [2:0] state;      //Current state
-    logic [2:0] state_next; //Next State
+    // logic [2:0] state_next; //Next State
 
     logic       SS0;        //Slave select (Flash)
     logic       SS1;        //Slave select (Shift register)
     logic       SS2;        //Slave select (Sensor (Hyroscope))
 
-    always_ff @ (posedge SCLK_i or posedge ARST_i) begin
-        if(RST_i) begin
-            MISO_i      <=  1'b0;
-            MOSI_o      <=  1'b1;
-
-            SS0_o       <=  1'b0;
-            SS1_o       <=  1'b0;
-            SS2_o       <=  1'b0;
-
-            tx_data     <=  8'b0;
-            rx_data     <=  8'b0;
-
-            bit_counter <=  4'b0;
-
-            state       <=  IDLE;            
+    always_ff @ (posedge clk_i) begin
+        if(rst_i) begin
+            state       <=  RESET;            
         end else begin
-            state       <=  state_next;
+            case(state)
+                RESET:
+                    state   =   IDLE;
+                IDLE:
+                    case(transaction_started_i)
+                        1'b0:   state   =   IDLE;
+                        1'b1:   state   =   SHIFT;
+                    endcase
+                SHIFT:
+
+                LOAD:
+
+                UNLOAD:
+
+            endcase
+            
         end
     end    
 
-    always_ff @ (posedge SCLK_i or posedge ARST_i) begin// : FSM
+    always_comb begin// : FSM
         case(state)
+            RESET:  begin
+                MISO_i      <=  1'b0;
+                MOSI_o      <=  1'b1;
+                tx_data     <=  8'b0;
+                rx_data     <=  8'b0;
+                bit_counter <=  10'b0;
+            end
             IDLE:   begin
-                case({ SS2, SS1, SS0 })
-                    3'b000:
+                case(SS)
+                    2'b00:
                         state_next  <= IDLE;
-                    3'b001: begin       //FLASH
+                    2'b00: begin       //FLASH
 
                     end
 
-                    3'b010: begin
+                    2'b00: begin
 
                     end
 
-                    3'b100: begin
+                    2'b00: begin
 
                     end
 
@@ -128,7 +144,6 @@ module SPI(
 
                 endcase
             end
-
 
         endcase
     end
